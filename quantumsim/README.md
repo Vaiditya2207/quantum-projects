@@ -1,1 +1,68 @@
-# quantumsim: Educational Quantum Computer Simulator Goal: Lightweight, didactic quantum circuit simulator optimized for clarity, modularity, and CPU-only execution on a MacBook. ## Features SUCCESS: - **Statevector simulator** (dense) up to ~20 qubits comfortably. - **Complete gate library**: X, Y, Z, H, S, T, RX, RY, RZ, CX, CZ, SWAP. - **Circuit builder** with fluent API and ASCII visualization. - **Quantum noise models**: Depolarizing, amplitude damping, phase damping. - **Educational examples**: Bell states, Grover's algorithm, teleportation, noise effects. - **Measurement simulation** with classical outcome sampling. ## Quick Start ```bash # From the workspace root: PYTHONPATH=$(pwd) python quantumsim/examples/run_grover.py PYTHONPATH=$(pwd) python quantumsim/examples/run_noise_demo.py ``` ## Example Usage ```python from quantumsim import Circuit, Executor, print_circuit # Create Bell state c = Circuit(2) c.h(0).cx(0, 1) print_circuit(c) # Execute and measure sv = Executor().run(c) print("Measurement counts:", sv.measure_all(1000)) # Output: {'00': ~500, '11': ~500} ``` ## Advanced Features ```python # Noise simulation from quantumsim.noise import DepolarizingChannel noise = DepolarizingChannel(p=0.1) noisy_state = noise.apply_stochastic(sv) # Algorithm examples python quantumsim/examples/run_grover.py # 2-qubit search python quantumsim/examples/run_teleport.py # Quantum teleportation ``` ## Roadmap Stages 1. Core data structures (QubitRegister, Gate, Circuit) + statevector executor. 2. Measurement + basic noise injection. 3. Visualization (ASCII + optional matplotlib). 4. Algorithms examples + docs. 5. Performance pass: simple gate fusion and caching. 6. (Stretch) Tensor network path contraction for >24 qubits (limited cases). ## Design Principles - Readability over micro-optimization in v0. - Pure functions where reasonable; deterministic random seeds. - Type hints & docstrings for every public function. - Minimal dependencies initially (numpy, typing, dataclasses, matplotlib optional). ## Folder Structure (planned) ``` quantumsim/ core/ statevector.py gates.py circuit.py executor.py noise/ channels.py viz/ ascii.py examples/ run_bell.py run_teleport.py requirements.txt README.md ``` ## License MIT (to be added).
+# quantumsim-edu: Educational Quantum Computing Simulator
+
+A lightweight, educational quantum circuit simulator designed for learning quantum computing concepts. Built with clarity and modularity in mind, quantumsim provides an intuitive interface for building and simulating quantum circuits.
+
+## How quantumsim Works
+
+quantumsim uses **statevector simulation** to model quantum systems:
+
+### Quantum State Representation
+- Quantum states are represented as complex-valued vectors in a 2^n dimensional Hilbert space
+- For n qubits, the statevector contains 2^n complex amplitudes
+- Each amplitude represents the probability amplitude for a specific computational basis state
+
+### Gate Operations
+- Quantum gates are implemented as unitary matrices
+- Gate application involves matrix-vector multiplication with the statevector
+- Multi-qubit gates use tensor product operations to construct full-dimensional matrices
+
+### Circuit Execution
+- Circuits are built using a fluent API that chains gate operations
+- The executor applies gates sequentially to evolve the quantum state
+- Intermediate states can be inspected for educational purposes
+
+## Features
+
+**Core Simulation Engine:**
+- Statevector simulator supporting up to 20 qubits on typical hardware
+- Complete quantum gate library: Pauli gates (X, Y, Z), Hadamard (H), Phase gates (S, T), Rotation gates (RX, RY, RZ), Controlled gates (CX, CZ), SWAP gate
+- Fluent circuit building API with method chaining
+- ASCII circuit visualization for educational clarity
+
+**Educational Tools:**
+- Interactive examples demonstrating key quantum algorithms
+- Bell state preparation and measurement
+- Grover's search algorithm implementation
+- Quantum teleportation protocol
+- Noise modeling for realistic quantum simulation
+
+## Installation
+
+```bash
+pip install quantumsim-edu
+```
+
+## Quick Start
+
+```python
+from core.circuit import Circuit
+from core.executor import Executor
+
+# Create a Bell state circuit
+circuit = Circuit(2)
+circuit.h(0)        # Apply Hadamard to qubit 0
+circuit.cx(0, 1)    # Apply CNOT with control=0, target=1
+
+# Execute the circuit
+executor = Executor()
+final_state = executor.run(circuit)
+
+# Measure the result
+measurement_counts = final_state.measure_all(shots=1000)
+print("Measurement results:", measurement_counts)
+# Expected: {'00': ~500, '11': ~500} (Bell state superposition)
+```
+
+## License
+
+MIT License - Free for educational and research use.
