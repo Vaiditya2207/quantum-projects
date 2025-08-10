@@ -1,31 +1,5 @@
 # Quantum Projects - Educational Quantum Computing Platform
 
-A comprehensive quantum computing ### 2. Your First Quantum Circuit
-
-```python
-import quantumsim as qs
-
-# Create a 2-qubit circuit
-circuit = qs.Circuit(2)
-
-# Add Hadamard gate to qubit 0
-circuit.h(0)
-
-# Add CNOT gate (control=0, target=1)
-circuit.cx(0, 1)
-
-# Execute the circuit
-executor = qs.Executor()
-statevector = executor.run(circuit)
-
-# Measure the qubits
-results = statevector.measure_all(shots=1000)
-print("Bell state results:", results)
-
-# Visualize the circuit
-qs.print_circuit(circuit)
-```m featuring an advanced quantum simulator and interactive learning environment.
-
 ## Project Overview
 
 This repository contains two complementary projects for quantum computing education:
