@@ -1,6 +1,30 @@
 # Quantum Projects - Educational Quantum Computing Platform
 
-A comprehensive quantum computing education platform featuring an advanced quantum simulator and interactive learning environment.
+A comprehensive quantum computing ### 2. Your First Quantum Circuit
+
+```python
+import quantumsim as qs
+
+# Create a 2-qubit circuit
+circuit = qs.Circuit(2)
+
+# Add Hadamard gate to qubit 0
+circuit.h(0)
+
+# Add CNOT gate (control=0, target=1)
+circuit.cx(0, 1)
+
+# Execute the circuit
+executor = qs.Executor()
+statevector = executor.run(circuit)
+
+# Measure the qubits
+results = statevector.measure_all(shots=1000)
+print("Bell state results:", results)
+
+# Visualize the circuit
+qs.print_circuit(circuit)
+```m featuring an advanced quantum simulator and interactive learning environment.
 
 ## Project Overview
 
@@ -96,64 +120,51 @@ from quantumsim.noise import DepolarizingChannel
 #### 1. Create Your First Quantum Circuit
 
 ```python
-from quantumsim import Circuit, Executor, print_circuit
+import quantumsim as qs
 
-# Create a 2-qubit circuit
-circuit = Circuit(2)
-
-# Add gates using fluent API
-circuit.h(0)        # Hadamard gate on qubit 0
-circuit.cx(0, 1)    # CNOT gate: control=0, target=1
-
-# Visualize the circuit
-print("Circuit diagram:")
-print_circuit(circuit)
+# Create a Bell state
+circuit = qs.Circuit(2)
+circuit.h(0)
+circuit.cx(0, 1)
 
 # Execute the circuit
-executor = Executor()
-result = executor.run(circuit)
-
-# Get measurement results
-counts = result.measure_all(shots=1000)
-print(f"Bell state measurements: {counts}")
-# Expected output: {'00': ~500, '11': ~500}
+executor = qs.Executor()
+statevector = executor.run(circuit)
+result = statevector.measure_all(shots=1000)
+print(result)  # {'00': ~500, '11': ~500}
 ```
 
-#### 2. Grover's Search Algorithm
+#### 3. Grover's Algorithm
 
 ```python
-from quantumsim import Circuit, Executor, print_circuit
+import quantumsim as qs
 
-def grovers_algorithm(target_state="11"):
-    """Grover's algorithm to find a marked state in a 2-qubit system"""
-    circuit = Circuit(2)
-    
-    # Step 1: Initialize superposition
-    circuit.h(0).h(1)
-    
-    # Step 2: Oracle - mark the target state |11⟩
-    if target_state == "11":
-        circuit.cz(0, 1)  # Phase flip for |11⟩
-    
-    # Step 3: Diffusion operator (inversion about average)
-    circuit.h(0).h(1)
-    circuit.x(0).x(1)
-    circuit.cz(0, 1)
-    circuit.x(0).x(1)
-    circuit.h(0).h(1)
-    
-    return circuit
+# Create a 3-qubit Grover search
+circuit = qs.Circuit(3)
 
-# Run Grover's algorithm
-grover_circuit = grovers_algorithm()
-print_circuit(grover_circuit)
+# Initialize superposition
+for i in range(3):
+    circuit.h(i)
 
-executor = Executor()
-result = executor.run(grover_circuit)
-counts = result.measure_all(1000)
+# Oracle (marking state |101⟩)
+circuit.cz(0, 2)
 
-print(f"Grover's search results: {counts}")
-# Should favor the marked state |11⟩
+# Diffusion operator
+for i in range(3):
+    circuit.h(i)
+for i in range(3):
+    circuit.x(i)
+circuit.ccz(0, 1, 2)
+for i in range(3):
+    circuit.x(i)
+for i in range(3):
+    circuit.h(i)
+
+# Execute and measure
+executor = qs.Executor()
+statevector = executor.run(circuit)
+results = statevector.measure_all(shots=1000)
+print("Grover results:", results)
 ```
 
 #### 3. Quantum Noise Simulation

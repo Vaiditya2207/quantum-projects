@@ -5,7 +5,7 @@ An educational quantum computing simulator for learning and experimentation.
 Provides simple APIs for building quantum circuits and running algorithms.
 """
 
-__version__ = "2.0.2"
+__version__ = "2.0.3"
 __author__ = "Vaiditya Tanwar"
 __email__ = "vaidityatanwar2207@gmail.com"
 
