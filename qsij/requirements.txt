@@ -1,0 +1,23 @@
+# qsij Requirements
+# Quantum Simulator Interactive Jupyter - Dependencies
+
+# Core Jupyter environment
+jupyterlab>=4.0.0
+notebook>=7.0.0
+ipywidgets>=8.0.0
+
+# Scientific computing and visualization  
+numpy>=1.21.0
+matplotlib>=3.5.0
+plotly>=5.0.0
+seaborn>=0.11.0
+
+# Jupyter extensions for better UX
+jupyterlab-widgets
+ipympl
+
+# Development and utility tools
+black
+isort
+
+# quantumsim will be installed separately (local or from PyPI)

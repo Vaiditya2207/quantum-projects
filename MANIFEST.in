@@ -1,0 +1,17 @@
+include README.md
+include LICENSE
+include MANIFEST.in
+recursive-include quantumsim *.py
+recursive-include quantumsim *.md
+recursive-include quantumsim *.ipynb
+recursive-include quantumsim/docs *
+recursive-include quantumsim/examples *
+recursive-include quantumsim/tutorials *
+include quantumsim/requirements.txt
+exclude update_documentation.py
+exclude *.egg-info
+exclude *.egg-info/*
+prune .venv
+prune __pycache__
+prune */__pycache__
+prune */*/__pycache__
