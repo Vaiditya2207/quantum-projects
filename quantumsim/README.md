@@ -1,6 +1,8 @@
 # quantumsim-edu: Educational Quantum Computing Simulator
 
-A lightweight, educational quantum circuit simulator designed for learning```python
+A lightweight, educational quantum circuit simulator designed for learning concepts. Built with clarity and modularity in mind, quantumsim provides an intuitive interface for building and simulating quantum circuits.
+
+```python
 import quantumsim as qs
 
 # Create a Bell state
@@ -13,7 +15,7 @@ executor = qs.Executor()
 statevector = executor.run(circuit)
 result = statevector.measure_all(shots=1000)
 print(result)  # {'00': ~500, '11': ~500}
-```uting concepts. Built with clarity and modularity in mind, quantumsim provides an intuitive interface for building and simulating quantum circuits.
+```
 
 ## How quantumsim Works
 
