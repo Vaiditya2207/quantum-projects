@@ -9,7 +9,7 @@ setup(
     name="quantumsim-edu",
     version="2.0.0",
     author="Vaiditya Tanwar", 
-    author_email="vaidityatanwar@example.com",
+    author_email="vaidityatanwar2207@gmail.com",
     description="Educational quantum computing simulator for learning and experimentation",
     long_description=long_description,
     long_description_content_type="text/markdown",

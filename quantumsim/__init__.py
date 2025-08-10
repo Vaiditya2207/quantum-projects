@@ -7,7 +7,7 @@ Provides simple APIs for building quantum circuits and running algorithms.
 
 __version__ = "2.0.0"
 __author__ = "Vaiditya Tanwar"
-__email__ = "vaiditya2207@gmail.com"
+__email__ = "vaidityatanwar2207@gmail.com"
 
 # Core quantum simulation
 from .core.circuit import Circuit
